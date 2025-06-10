@@ -1,0 +1,17 @@
+name: Sanitize PR Comments
+
+on:
+  pull_request_review_comment:
+    types: [created, edited]
+
+jobs:
+  sanitize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run PR sanitizer action
+        uses: ravikiran763/pr-sanitizer@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          openaiApiKey: ${{ secrets.OPENAI_API_KEY }}
+          pr: ${{ github.event.pull_request.number }}
+          repo: ${{ github.repository }}
