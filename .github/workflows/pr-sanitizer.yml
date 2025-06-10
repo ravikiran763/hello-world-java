@@ -14,7 +14,7 @@ jobs:
         actions: write
     steps:
       - name: Run PR sanitizer action
-        uses: ravikiran763/pr-sanitizer@v6
+        uses: ravikiran763/pr-sanitizer@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           openaiApiKey: ${{ secrets.OPENAI_API_KEY }}
