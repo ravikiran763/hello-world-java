@@ -1,55 +1,55 @@
 package com.my.app.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.myapp.service.ItemService;
 
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/items") // Base path for all endpoints in this controller
 public class ItemController {
+	
+	@Autowired
+	
+	private ItemService itemService;
 
-    private final Map<Integer, String> items = new HashMap<>();
-    private int currentId = 1;
+
+    
 
     // GET all items
     @GetMapping
     public Collection<String> getAllItems() {
-        return items.values();
+    	return itemService.getAllItems();
+        
     }
 
     // GET a single item by ID
     @GetMapping("/{id}")
     public String getItem(@PathVariable int id) {
-        if (!items.containsKey(id)) {
-            throw new NoSuchElementException("Item not found");
-        }
-        return items.get(id);
+    	
+    	return itemService.getItem(id);
+       
     }
 
     // POST a new item
     @PostMapping
     public String createItem(@RequestBody String newItem) {
-        items.put(currentId++, newItem);
-        return "Item created successfully";
+    	return itemService.createItem(newItem);
+        
     }
 
     // PUT to update an existing item
     @PutMapping("/{id}")
     public String updateItem(@PathVariable int id, @RequestBody String updatedItem) {
-        if (!items.containsKey(id)) {
-            throw new NoSuchElementException("Item not found");
-        }
-        items.put(id, updatedItem);
-        return "Item updated successfully";
+        return itemService.updateItem(id, updatedItem);
     }
 
     // DELETE an item
     @DeleteMapping("/{id}")
     public String deleteItem(@PathVariable int id) {
-        if (!items.containsKey(id)) {
-            throw new NoSuchElementException("Item not found");
-        }
-        items.remove(id);
-        return "Item deleted successfully";
+    	return itemService.deleteItem(id);
+        
     }
 }
