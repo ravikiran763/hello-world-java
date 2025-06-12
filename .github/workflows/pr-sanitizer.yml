@@ -7,9 +7,14 @@ on:
 jobs:
   sanitize:
     runs-on: ubuntu-latest
+    permissions:
+        pull-requests: write
+        contents: write
+        issues: write
+        actions: write
     steps:
       - name: Run PR sanitizer action
-        uses: ravikiran763/pr-sanitizer@v1
+        uses: ravikiran763/pr-sanitizer@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           openaiApiKey: ${{ secrets.OPENAI_API_KEY }}
